@@ -1,7 +1,8 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import AppForm from "./assets/components/AppForm";
 import { useState } from "react";
-// Dovremo creare una nuova app React che contenga un form per creare un nuovo post all’interno di un blog.
+// Dovremo creare una nuova app React che contenga un form per creare un nuovo post all’interno
+// di un blog.
 
 // I dati che il form dovrà inviare sono i seguenti:
 
@@ -21,64 +22,21 @@ function App() {
     author: "",
     title: "",
     body: "",
-    public: true,
+    private: false,
   });
 
   function handleFormData(e) {
+    const value =
+      e.target.type === "checkbox" ? e.target.checked : e.target.value;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [e.target.name]: value,
     });
     console.log(formData);
   }
   return (
     <>
-      <AppForm />
-      <div className="row justify-content-center align-items-center m-2">
-        <div className="col">
-          <input
-            type="text"
-            name="author"
-            value={formData.name}
-            onChange={handleFormData}
-            placeholder="Inserisci autore"
-          />
-        </div>
-        <div className="col">
-          <input
-            type="text"
-            name="title"
-            value={formData.name}
-            onChange={handleFormData}
-            placeholder="Inserisci titolo"
-          />
-
-        </div>
-        <div className="col">
-            <input
-            id="Pubblica"
-            type="checkbox"
-            name="public"
-            value={formData.name}
-            onChange={handleFormData}
-            placeholder="Inserisci titolo"
-          />
-          <label for="Private">Privato</label>
-          
-        </div>
-      </div>
-<div className="row justify-content-center align-items-center m-2">
-      <textarea
-       className="m-2"
-        type="text"
-        name="body"
-        value={formData.name}
-        onChange={handleFormData}
-        rows={4}   
-        placeholder="Inserisci descrizione"
-
-      />
-      </div>
+      <AppForm formData={formData} onHandleForm={handleFormData} />
     </>
   );
 }
